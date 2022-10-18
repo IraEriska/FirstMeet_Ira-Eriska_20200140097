@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import pabd.learningmigrateDB.exceptions.IllegalOrphanException;
 import pabd.learningmigrateDB.exceptions.NonexistentEntityException;
 import pabd.learningmigrateDB.exceptions.PreexistingEntityException;
@@ -26,12 +27,17 @@ public class FavoriteJpaController implements Serializable {
     public FavoriteJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-    private EntityManagerFactory emf = null;
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("pabd_learningmigrateDB_jar_0.0.1-SNAPSHOTPU");
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    public FavoriteJpaController() {
+    }
+    
+    
+    
     public void create(Favorite favorite) throws IllegalOrphanException, PreexistingEntityException, Exception {
         List<String> illegalOrphanMessages = null;
         Doa idDoaOrphanCheck = favorite.getIdDoa();
